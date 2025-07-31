@@ -12,14 +12,16 @@
         <h1>Buscaminas</h1>
         <nav>
             <a href="contacto.html">Contacto</a>
+            <a href="https://github.com/JPEstelles/minesweeper-final-DyAW.git" target="_blank" rel="noopener">GitHub</a>
         </nav>
     </header>
     <main class="main">
-        <section id="inicio">
-            <form id ="formJugador" class ="formJugador">
-                <label for="nombreJugador">Nombre del Jugador:</label>
-                <input type="text" id="nombreJugador" name="nombreJugador" maxlength="20" required>
-                <button type="submit">Iniciar Juego</button>
+        <section class="inicio">
+            <form id="formJugador" class="form-jugador" autocomplete="off">
+                <label for="nombreJugador">Nombre del jugador:</label>
+                <input type="text" id="nombreJugador" name="nombreJugador" maxlength="20">
+                <div id="errorNombre" class="errores"></div>
+                <button type="submit">Iniciar partida</button>
             </form>
         </section>
         <section id="juego" class="juego oculto">
