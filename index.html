@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscaminas - Proyecto Final</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+</head>
+<body>
+    <header class ="header">
+        <h1>Buscaminas</h1>
+        <nav>
+            <a href="contacto.html">Contacto</a>
+            <a href="https://github.com/JPEstelles/minesweeper-final-DyAW.git" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+    </header>
+    <main class="main">
+        <section class="inicio">
+            <form id="formJugador" class="form-jugador" autocomplete="off">
+                <label for="nombreJugador">Nombre del jugador:</label>
+                <input type="text" id="nombreJugador" name="nombreJugador" maxlength="20">
+                <div id="errorNombre" class="errores"></div>
+                <button type="submit">Iniciar partida</button>
+            </form>
+        </section>
+        <section id="juego" class="juego oculto">
+            <div class="barra">
+                <span id="minasRestantes"> Minas : 10</span>
+                <button id="reiniciarBtn" class="reiniciar-btn" type="button">😊</button>
+                <span id="temporizador">Tiempo: 00:00</span>
+            </div>
+            <div id="tablero" class ="tablero">
+                <!-- Aca se generara el tablero del juego -->
+            </div> 
+        </section>
+        <div id="modal" class="modal oculto">
+            <div class="modal-contenido">
+                <span id="modalMensaje"></span>
+                <button id="modalCerrar" type="button">Cerrar</button>
+            </div>
+        </div> 
+    </main>
+    <script src="js/main.js" defer></script>
+</body>
+</html>
