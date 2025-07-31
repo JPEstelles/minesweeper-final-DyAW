@@ -8,9 +8,9 @@ var minasRestantesElem = document.getElementById("minasRestantes");
 var temporizadorElem = document.getElementById("temporizador");
 
 //Modal - arreglarlo
-//var modal = document.getElementById("modal");
-//var modalMensaje = document.getElementById("modalMensaje");
-//var modalCerrar = document.getElementById("modalCerrar");
+var modal = document.getElementById("modal");
+var modalMensaje = document.getElementById("modalMensaje");
+var modalCerrar = document.getElementById("modalCerrar");
 
 // Variables Juego
 var nombreJugador = "";
@@ -26,9 +26,9 @@ var juegoActivo = false;
 document.addEventListener("DOMContentLoaded", function() {
     formJugador.addEventListener("submit", iniciarJuego);
     reiniciarBtn.addEventListener("click", reiniciarJuego);
-   // modalCerrar.addEventListener("click", function() { //Al click en el boton de cerrar del modal se oculta
-   //     modal.classList.add("oculto");
-   // });
+    modalCerrar.addEventListener("click", function() { //Al click en el boton de cerrar del modal se oculta
+     modal.classList.add("oculto");
+    });
 });
 
 function iniciarJuego(evento) {
@@ -160,7 +160,7 @@ function revelarCelda(f, c){
         celda.elem.classList.add("mina"); // Añadir clase de mina
         celda.elem.textContent = "💣"; // Mostrar mina
         juegoActivo = false; // Terminar el juego
-        //mostrarModal("¡PERDISTE! 😢");
+        mostrarModal("¡PERDISTE! 😢");
         return;
     }
     reveladas++; // Aumentar el contador de celdas reveladas
@@ -174,7 +174,7 @@ function revelarCelda(f, c){
             for (var dc = -1; dc <= 1; dc++) {
                 if (df === 0 && dc === 0) continue; // Saltar la celda actual
                 var nf = f + df, nc = c + dc; // Nueva fila y columna
-                if (nf >= 0 && nf < filas && nc >= 0 && nc < columnas) { // Verificar límites del tablero
+                if (nf >= 0 && nf < filas && nc >= 0 && nc < columnas) { // Verificar limites del tablero
                     revelarCelda(nf, nc); // Llamada recursiva para revelar celdas adyacentes
                 }
             }
@@ -200,10 +200,10 @@ function verificarVictoria() {
         mostrarModal("¡Ganaste, " + nombreJugador + "!");
     }
 }
-/*function mostrarModal(texto) {
+function mostrarModal(texto) {
     modalMensaje.textContent = texto;
     modal.classList.remove("oculto");
-}*/
+}
 function reiniciarJuego() {
     iniciarPartida();
 }
