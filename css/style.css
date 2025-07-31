@@ -61,10 +61,40 @@ body {
     width: 2.5rem;
     height: 2.5rem;}
 
+.celda {
+    width: 40px;
+    height: 40px;
+    background: #bbb;
+    border: 1px solid #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+    user-select: none;
+}
+.celda.revelada {
+    background: #e0e0e0;
+    cursor: default;
+}
+.celda.bandera {
+    background: #ffe082;
+}
+.celda.mina {
+    background: #ff5252;
+    color: #fff;
+}
 @media (max-width:480px) {
-    .tablero{
-        width:240px;
+    .tablero {
+        width: 240px;
         height: 240px;
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+    }
+    .celda {
+        width: 30px;
+        height: 30px;
     }
     .main {
         margin-top: 1rem;
