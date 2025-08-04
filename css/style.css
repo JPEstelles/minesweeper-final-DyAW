@@ -32,9 +32,12 @@ body {
     flex-direction: column;
     gap: 0.5rem;
     background: #fff;
-    padding: 1.5rem;
+    padding: 1em;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);  
+    min-width: 300px;    /* ancho mínimo */
+    width: 100%;         /* Se adapta a su contenedor */
+    box-sizing: border-box;
 }
 
 .juego {
@@ -123,7 +126,10 @@ body {
     color: #D32F2F;
     margin: 0.3rem 0 0.3rem 0;
     font-size: 1rem;
+    max-width: 200px; 
 }
+
+
 @media (max-width: 480px) {
     .tablero {
         width: 240px;
