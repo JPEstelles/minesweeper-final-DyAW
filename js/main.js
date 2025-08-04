@@ -29,6 +29,7 @@ var segundos = 0;
 document.addEventListener("DOMContentLoaded", function() {
     formJugador.addEventListener("submit", iniciarJuego);
     reiniciarBtn.addEventListener("click", reiniciarJuego);
+
     modalCerrar.addEventListener("click", function() { //Al click en el boton de cerrar del modal se oculta
      modal.classList.add("oculto");
     });
@@ -41,7 +42,7 @@ function iniciarJuego(evento) {
     var nombre = input.value.trim();
 
     if (nombre.length <3 || !/^[a-zA-Z0-9 ]+$/.test(nombre)){
-        errorNombre.textContent = "El nombre debe ser alfanumérico y tener al menos 3 caracteres."; 
+        errorNombre.textContent = "El nombre debe tener al menos 3 caracteres."; 
         return;
     }
     nombreJugador = nombre;
@@ -174,7 +175,7 @@ function revelarCelda(f, c){
         celda.elem.classList.add("mina"); 
         celda.elem.textContent = "💣"; 
         juegoActivo = false; 
-        mostrarModal("¡PERDISTE! 😢");
+        mostrarModal("¡PERDISTE! Sos Malisimo " + nombreJugador + " 😢");
         clearInterval(timer);
         revelarTodasMinas();
         return;
