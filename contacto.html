@@ -1,9 +1,7 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - Buscaminas</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/reset.css">
@@ -16,6 +14,8 @@
         </nav>
     </header>
     <main class="main">
+        <section class ="contacto">
+            <h2>Contáctanos</h2>
         <form id="formContacto" class="form-jugador">
             <label for="nombreContacto">Nombre:</label>
             <input type="text" id="nombreContacto" name="nombreContacto" maxlength="20" required>
@@ -25,7 +25,13 @@
             <textarea id="mensajeContacto" name="mensajeContacto" rows="4" maxlength="200" required></textarea>
             <button type="submit">Enviar</button>
         </form>
-        <div id="erroresContacto" class ="errores"></div>
+        <div id="modal" class="modal oculto">
+            <div class="modal-contenido">
+                <span id="modalMensaje"></span>
+                <button id="modalCerrar" type="button">Cerrar</button>
+            </div>
+        </div> 
+        </section>
     </main>
     <script src="js/contacto.js" defer></script>
 </body>

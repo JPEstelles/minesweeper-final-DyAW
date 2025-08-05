@@ -2,14 +2,13 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     var form = document.getElementById("formContacto");
-    var erroresDiv =  document.getElementById("erroresContacto");
+    var modalCerrar = document.getElementById("modalCerrar");
 
     form.addEventListener("submit", function(e) {
         e.preventDefault();
-        erroresDiv.innerHTML = ""; // Limpiar errores previos
 
         var nombre = document.getElementById("nombreContacto").value.trim();
-        var email = document.getElementById("mailContacto").value.trim();
+        var email = document.getElementById("emailContacto").value.trim();
         var mensaje = document.getElementById("mensajeContacto").value.trim();
 
         var errores = [];
@@ -23,14 +22,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         // Validación del mensaje
         if (mensaje.length < 5 || !/^[a-zA-Z0-9 .,;:¡!¿?()\-_'"]+$/.test(mensaje)) {
-            errores.push("El mensaje debe ser alfanumérico y tener al menos 5 caracteres.");
+            errores.push("El mensaje debe tener al menos 5 caracteres.");
         }
         // Si hay errores, mostrarlos
         if (errores.length > 0) {
-            erroresDiv.innerHTML = errores.map(function(e) {
-                return "<div>" + e + "</div>";
-            }).join("");
-            erroresDiv.style.color = "#D32F2F";
+            mostrarModal(errores.join("<br>"));
             return;
         }
         // Si no hay errores, enviar el formulario
@@ -39,4 +35,14 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "mailto:correo@ejemplo.com?subject=" + asunto + "&body=" + cuerpo;
 
     });
+    modalCerrar.addEventListener("click", function() {
+        document.getElementById("modal").classList.add("oculto");
+    });
 });
+
+function mostrarModal(texto) {
+    var modal = document.getElementById("modal");
+    var modalMensaje = document.getElementById("modalMensaje");
+    modalMensaje.innerHTML = texto;
+    modal.classList.remove("oculto");
+}
