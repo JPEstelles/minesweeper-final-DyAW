@@ -42,7 +42,7 @@ function iniciarJuego(evento) {
     var nombre = input.value.trim();
 
     if (nombre.length <3 || !/^[a-zA-Z0-9 ]+$/.test(nombre)){
-        errorNombre.textContent = "El nombre debe tener al menos 3 caracteres."; 
+        errorNombre.textContent = "El nombre debe tener al menos 3 caracteres alfanuméricos."; 
         return;
     }
     nombreJugador = nombre;
@@ -152,17 +152,23 @@ function clickBandera(e) {
     var f = parseInt(this.dataset.fila), c = parseInt(this.dataset.col);
     var celda = tablero[f][c];
     if (celda.revelada) return;
-    celda.bandera = !celda.bandera;
-    if (celda.bandera) {
-        this.classList.add("bandera");
-        this.textContent = "🚩"; a
-        banderasColocadas++;
-    } else {
+    //Si ya tiene una bandera , se la saco
+    if (celda.bandera){
+        celda.bandera = false;
         this.classList.remove("bandera");
-        this.textContent = ""; // Limpiar el contenido de la celda
+        this.textContent = ""; 
         banderasColocadas--;
     }
-    // El contador puede quedar negativo si hay más banderas que minas
+    else{
+        if(banderasColocadas < minas){
+            celda.bandera = true;
+            this.classList.add("bandera");
+            this.textContent = "🚩"; 
+            banderasColocadas++;
+        } else {
+            mostrarModal("No puedes colocar más banderas que minas.");
+        }
+    }
     minasRestantesElem.textContent = "Minas: " + (minas - banderasColocadas);
 }
 
