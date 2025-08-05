@@ -1,14 +1,61 @@
+/* Boton para alternar entre tema claro y oscuro */
+.theme-toggle {
+    background: none;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 1rem;
+    transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+/* Variables del tema claro (por defecto) */
+:root {
+    --bg-color: #eee;
+    --text-color: #222;
+    --header-bg: #444;
+    --form-bg: #fff;
+    --input-bg: #f9f9f9;
+    --input-border: #bbb;
+    --celda-bg: #bbb;
+    --celda-border: #999;
+    --celda-revelada: #e0e0e0;
+    --tablero-bg: #ccc;
+    --modal-bg: #fff;
+}
+/* Variables del tema oscuro */
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --header-bg: #2d2d2d;
+    --form-bg: #2d2d2d;
+    --input-bg: #3a3a3a;
+    --input-border: #555;
+    --celda-bg: #404040;
+    --celda-border: #555;
+    --celda-revelada: #505050;
+    --tablero-bg: #333;
+    --modal-bg: #2d2d2d;
+}
+
+/* Configuracion base del cuerpo del documento */
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #eee;
-    color: #222;
+    background: var(--bg-color);
+    color: var(--text-color);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: background 0.3s, color 0.3s;
 }
-
+/* Estilo del encabezado principal */
 .header {
-    background: #444;
+    background: var(--header-bg);
     color: #fff;
     padding: 1rem 2rem;
     text-align: center;
@@ -17,7 +64,7 @@ body {
 .titulo {
     font-size: 2rem;
 }
-
+/* Contenedor principal del contenido */
 .main {
     flex: 1;
     display: flex;
@@ -26,12 +73,12 @@ body {
     justify-content: flex-start;
     margin-top: 2rem;
 }
-
+/* Contenedor de formularios del jugador */
 .form-jugador {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    background: #fff;
+    background: var(--form-bg);
     padding: 1em;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);  
@@ -51,11 +98,12 @@ body {
 .form-jugador input,
 .form-jugador textarea {
     padding: 0.7rem;
-    border: 1px solid #bbb;
+    border: 1px solid var(--input-border);
     border-radius: 6px;
     font-size: 1rem;
     transition: border-color 0.2s;
-    background: #f9f9f9;
+    background: var(--input-bg);
+    color: var(--text-color);
 }
 .form-jugador button {
     background: #4CAF50;
@@ -67,13 +115,14 @@ body {
     font-size: 1.05rem;
     transition: background 0.2s, transform 0.1s;
 }
+/* Contenedor principal del juego */
 .juego {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 2rem;
 }
-
+/* Barra de informacion del juego (tiempo, minas, etc.) */
 .barra {
     display: flex;
     align-items: center;
@@ -89,24 +138,25 @@ body {
     width: 2.5rem;
     height: 2.5rem;
 }
-
+/* Contenedor del tablero de minas */
 .tablero {
     display: flex;
     flex-wrap: wrap;
     width: min(90vw, 400px);
     height: min(90vw, 400px);
-    background: #ccc;
+    background: var(--tablero-bg);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     margin-bottom: 2rem;
     position: relative;
 }
+/* Celdas individuales del tablero */
 .celda {
-    width: 12.5%; /* 100/8 */
+    width: 12.5%;
     height: 12.5%;
     box-sizing: border-box;
-    background: #bbb;
-    border: 1px solid #999;
+    background: var(--celda-bg);
+    border: 1px solid var(--celda-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,10 +165,13 @@ body {
     user-select: none;
     transition: background 0.15s;
 }
+/* Celdas clickeadas */
 .celda.revelada {
-    background: #e0e0e0;
+    background: var(--celda-revelada);
     cursor: default;
+    color: var(--text-color)
 }
+/* Celdas con bandera */
 .celda.bandera {
     background: #ffe082;
     color: #d32f2f;
@@ -128,6 +181,7 @@ body {
     background: #ff5252;
     color: #fff;
 }
+/* modal */
 .modal {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -137,17 +191,11 @@ body {
     background: rgba(0,0,0,0.3);
     z-index: 100;
 }
-.modal-contenido {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    min-width: 250px;
-    text-align: center;
-}
+/* Clase para ocultar elementos */
 .oculto {
     display: none !important;
 }
-
+/* Mensajes de error */
 .errores {
     color: #d32f2f;
     font-size: 1rem;
@@ -155,14 +203,19 @@ body {
     max-width: 100%;
     font-weight: 500;
 }
+
+/* Contenido del modal */
 .modal-contenido {
-    background: #fff;
+    background: var(--modal-bg);
     padding: 2rem;
     border-radius: 12px;
     min-width: 250px;
     text-align: center;
     box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    color: var(--text-color);
 }
+
+/* Botón de cerrar modal */
 #modalCerrar {
     display: block;
     margin-left: auto;
@@ -178,6 +231,7 @@ body {
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
 }
+
 #mensajeContacto {
     resize: vertical;           /* Solo permite expandir hacia abajo */
     max-height: 220px;          
@@ -185,6 +239,21 @@ body {
     width: 100%;                
   
 }
+/* Boton de tema en modo oscuro */
+[data-theme="dark"] .theme-toggle {
+    border-color: #fff;
+    color: #fff;
+}
+/* Etiquetas de formulario en tema oscuro */
+[data-theme="dark"] .form-jugador label {
+    color: #e0e0e0;
+}
+/* Mensajes de error en tema oscuro */
+[data-theme="dark"] .errores {
+    color: #ff6b6b;
+}
+/* Ajustes para dispositivos moviles */
+
 @media (max-width: 480px) {
     .tablero {
         width: 240px;

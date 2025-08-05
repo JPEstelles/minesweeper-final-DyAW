@@ -7,7 +7,8 @@ var reiniciarBtn = document.getElementById("reiniciarBtn");
 var minasRestantesElem = document.getElementById("minasRestantes");
 var temporizadorElem = document.getElementById("temporizador");
 var errorNombre = document.getElementById("errorNombre");
-
+var themeToggle = document.getElementById("themeToggle");
+var currentTheme = localStorage.getItem("theme") || "light";
 //Modal - arreglarlo
 var modal = document.getElementById("modal");
 var modalMensaje = document.getElementById("modalMensaje");
@@ -29,6 +30,13 @@ var segundos = 0;
 document.addEventListener("DOMContentLoaded", function() {
     formJugador.addEventListener("submit", iniciarJuego);
     reiniciarBtn.addEventListener("click", reiniciarJuego);
+
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    updateThemeToggle();
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", toggleTheme);
+    }
 
     modalCerrar.addEventListener("click", function() { //Al click en el boton de cerrar del modal se oculta
      modal.classList.add("oculto");
@@ -221,7 +229,18 @@ function verificarVictoria() {
         clearInterval(timer);
     }
 }
+function toggleTheme() {
+    currentTheme = currentTheme === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    localStorage.setItem("theme", currentTheme);
+    updateThemeToggle();
+}
 
+function updateThemeToggle() {
+    if (themeToggle) {
+        themeToggle.textContent = currentTheme === "light" ? "🌙" : "☀️";
+    }
+}
 function mostrarModal(texto) {
     modalMensaje.textContent = texto;
     modal.classList.remove("oculto");

@@ -1,8 +1,18 @@
 "use strict";
+var themeToggle = document.getElementById("themeToggle");
+var currentTheme = localStorage.getItem("theme") || "light";
 
 document.addEventListener("DOMContentLoaded", function() {
     var form = document.getElementById("formContacto");
     var modalCerrar = document.getElementById("modalCerrar");
+
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    updateThemeToggle();
+    
+    // Theme toggle event
+    if (themeToggle) {
+        themeToggle.addEventListener("click", toggleTheme);
+    }
 
     form.addEventListener("submit", function(e) {
         e.preventDefault();
@@ -39,6 +49,19 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("modal").classList.add("oculto");
     });
 });
+
+function toggleTheme() {
+    currentTheme = currentTheme === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    localStorage.setItem("theme", currentTheme);
+    updateThemeToggle();
+}
+
+function updateThemeToggle() {
+    if (themeToggle) {
+        themeToggle.textContent = currentTheme === "light" ? "🌙" : "☀️";
+    }
+}
 
 function mostrarModal(texto) {
     var modal = document.getElementById("modal");
