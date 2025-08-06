@@ -42,7 +42,6 @@
     --tablero-bg: #333;
     --modal-bg: #2d2d2d;
 }
-
 /* Configuracion base del cuerpo del documento */
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -60,7 +59,33 @@ body {
     padding: 1rem 2rem;
     text-align: center;
 }
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+nav button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.2s, transform 0.1s;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background 0.2s, transform 0.1s;
+    font-weight: 500;
+}
 
+nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
 .titulo {
     font-size: 2rem;
 }
@@ -253,6 +278,34 @@ body {
     color: #ff6b6b;
 }
 /* Ajustes para dispositivos moviles */
+
+.nivel-dificultad {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.nivel-dificultad label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--texto-color);
+}
+
+.nivel-dificultad select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid var(--borde-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    color: var(--texto-color);
+    width: 250px;
+    cursor: pointer;
+}
+
+.nivel-dificultad select:focus {
+    outline: none;
+    border-color: var(--acento-color);
+}
 
 @media (max-width: 480px) {
     .tablero {

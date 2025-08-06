@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>Buscaminas - Proyecto Final</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/reset.css">
@@ -10,9 +9,10 @@
     <header class ="header">
         <h1>Buscaminas</h1>
         <nav>
-            <button id="temaCambiar" class="tema-cambiar" type="button">🌙</button>
             <a href="contacto.html">Contacto</a>
-            <a href="https://github.com/JPEstelles/minesweeper-final-DyAW.git" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://github.com/JPEstelles/minesweeper-final-DyAW.git" target="_blank">GitHub</a>
+            <button id="temaCambiar" class="tema-cambiar" type="button">🌙</button>
+            <button id="musicaBtn" class="musica-btn" title="Música de fondo">🎵</button>
         </nav>
     </header>
     <main class="main">
@@ -29,6 +29,14 @@
                 <span id="minasRestantes"> Minas : 10</span>
                 <button id="reiniciarBtn" class="reiniciar-btn" type="button">😊</button>
                 <span id="temporizador">Tiempo: 00:00</span>
+            </div>
+            <!--<div class="nivel-dificultad">
+                <label for="dificultad">Nivel de Dificultad:</label>
+                <select id="dificultad" name="dificultad">
+                    <option value="facil">Fácil</option>
+                    <option value="medio">Medio</option>
+                    <option value="dificil">Difícil</option>
+                </select>-->
             </div>
             <div id="tablero" class ="tablero">
                 <!-- Aca se generara el tablero del juego -->
