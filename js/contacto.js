@@ -1,9 +1,15 @@
 "use strict";
-
+var temaCambiar = document.getElementById("temaCambiar");
+var temaActual = localStorage.getItem("tema") || "claro";
 document.addEventListener("DOMContentLoaded", function() {
     var form = document.getElementById("formContacto");
     var modalCerrar = document.getElementById("modalCerrar");
-
+    document.documentElement.setAttribute("data-tema", temaActual);
+    actualizarCambiarTema();
+    // tema 
+    if (temaCambiar) {
+        temaCambiar.addEventListener("click", CambiarTema);
+    }
     form.addEventListener("submit", function(e) {
         e.preventDefault();
 
@@ -33,13 +39,22 @@ document.addEventListener("DOMContentLoaded", function() {
         var asunto = encodeURIComponent("Contacto Buscaminas");
         var cuerpo = encodeURIComponent("Nombre: " + nombre + "\nEmail: " + email + "\nMensaje: " + mensaje);
         window.location.href = "mailto:correo@ejemplo.com?subject=" + asunto + "&body=" + cuerpo;
-
     });
     modalCerrar.addEventListener("click", function() {
         document.getElementById("modal").classList.add("oculto");
     });
 });
-
+function CambiarTema() {
+    temaActual = temaActual === "claro" ? "oscuro" : "claro";
+    document.documentElement.setAttribute("data-tema", temaActual);
+    localStorage.setItem("tema", temaActual);
+    actualizarCambiarTema();
+}
+function actualizarCambiarTema() {
+    if (temaCambiar) {
+        temaCambiar.textContent = temaActual === "claro" ? "🌙" : "☀️";
+    }
+}
 function mostrarModal(texto) {
     var modal = document.getElementById("modal");
     var modalMensaje = document.getElementById("modalMensaje");
