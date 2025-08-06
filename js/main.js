@@ -1,5 +1,4 @@
-"use strict"
-
+"use strict";
 var formJugador = document.getElementById("formJugador");
 var juegoSection = document.getElementById("juego");
 var tableroElem = document.getElementById("tablero"); 
@@ -7,13 +6,16 @@ var reiniciarBtn = document.getElementById("reiniciarBtn");
 var minasRestantesElem = document.getElementById("minasRestantes");
 var temporizadorElem = document.getElementById("temporizador");
 var errorNombre = document.getElementById("errorNombre");
-var themeToggle = document.getElementById("themeToggle");
-var currentTheme = localStorage.getItem("theme") || "light";
+var temaCambiar = document.getElementById("temaCambiar");
+var temaActual = localStorage.getItem("tema") || "claro";
 //Modal - arreglarlo
 var modal = document.getElementById("modal");
 var modalMensaje = document.getElementById("modalMensaje");
 var modalCerrar = document.getElementById("modalCerrar");
-
+//Sonidos
+var sonidoBomba = new Audio("sonidos/bomb.mp3");
+var sonidoVictoria = new Audio("sonidos/one-man.mp3");
+var sonidoGameOver = new Audio("sonidos/game-over.mp3");
 // Variables Juego
 var nombreJugador = "";
 var columnas = 8;
@@ -26,23 +28,18 @@ var juegoActivo = false;
 var banderasColocadas = 0;
 var timer = null;
 var segundos = 0;
-
 document.addEventListener("DOMContentLoaded", function() {
     formJugador.addEventListener("submit", iniciarJuego);
     reiniciarBtn.addEventListener("click", reiniciarJuego);
-
-    document.documentElement.setAttribute("data-theme", currentTheme);
-    updateThemeToggle();
-
-    if (themeToggle) {
-        themeToggle.addEventListener("click", toggleTheme);
+    document.documentElement.setAttribute("data-tema", temaActual);
+    actualizarCambiarTema();
+    if (temaCambiar) {
+        temaCambiar.addEventListener("click", CambiarTema);
     }
-
     modalCerrar.addEventListener("click", function() { //Al click en el boton de cerrar del modal se oculta
-     modal.classList.add("oculto");
+        modal.classList.add("oculto");
     });
 });
-
 function iniciarJuego(evento) {
     evento.preventDefault();
     errorNombre.textContent = "";
@@ -135,7 +132,6 @@ function contarMinasAlrededor(fila, columna) {
     }
     return total; 
 }
-
 function clickCelda(e){
     if (!juegoActivo) return; // Si el juego no está activo, no hacer nada
     // Inicio Tmeporizador
@@ -153,7 +149,6 @@ function clickCelda(e){
     revelarCelda( f, c); // Revelar la celda
     verificarVictoria(); // Verificar si se ha ganado
 }
-
 function clickBandera(e) {
     e.preventDefault();
     if (!juegoActivo) return;
@@ -179,7 +174,6 @@ function clickBandera(e) {
     }
     minasRestantesElem.textContent = "Minas: " + (minas - banderasColocadas);
 }
-
 function revelarCelda(f, c){
     var celda = tablero[f][c]; // Obtener la celda del tablero
     if (celda.revelada || celda.bandera) return; // Si ya está revelada o tiene bandera, no hacer nada
@@ -189,7 +183,9 @@ function revelarCelda(f, c){
         celda.elem.classList.add("mina"); 
         celda.elem.textContent = "💣"; 
         juegoActivo = false; 
+        sonidoBomba.play();
         mostrarModal("¡PERDISTE! Sos Malisimo " + nombreJugador + " 😢");
+
         clearInterval(timer);
         revelarTodasMinas();
         return;
@@ -209,7 +205,6 @@ function revelarCelda(f, c){
         }
     }
 }
-
 function revelarTodasMinas() {
     for (var f = 0; f < filas; f++) {
         for (var c = 0; c < columnas; c++) {
@@ -221,31 +216,30 @@ function revelarTodasMinas() {
         }
     }
 }
-
 function verificarVictoria() {
     if (reveladas === filas * columnas - minas) {
         juegoActivo = false;
+        sonidoVictoria.play();
+        revelarTodasMinas();
         mostrarModal("¡Ganaste, " + nombreJugador + "!");
         clearInterval(timer);
     }
 }
-function toggleTheme() {
-    currentTheme = currentTheme === "light" ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", currentTheme);
-    localStorage.setItem("theme", currentTheme);
-    updateThemeToggle();
+function CambiarTema() {
+    temaActual = temaActual === "claro" ? "oscuro" : "claro";
+    document.documentElement.setAttribute("data-tema", temaActual);
+    localStorage.setItem("tema", temaActual);
+    actualizarCambiarTema();
 }
-
-function updateThemeToggle() {
-    if (themeToggle) {
-        themeToggle.textContent = currentTheme === "light" ? "🌙" : "☀️";
+function actualizarCambiarTema() {
+    if (temaCambiar) {
+        temaCambiar.textContent = temaActual === "claro" ? "🌙" : "☀️";
     }
 }
 function mostrarModal(texto) {
     modalMensaje.textContent = texto;
     modal.classList.remove("oculto");
 }
-
 function reiniciarJuego() {
     clearInterval(timer);
     iniciarPartida();
