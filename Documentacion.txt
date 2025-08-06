@@ -1,0 +1,69 @@
+# Minesweeper Web - Resumen de Sprints y Avances
+
+Este documento describe, de forma breve y ordenada, los pasos realizados a lo largo de los 5 sprints del desarrollo del Buscaminas web, junto con los agregados extra que enriquecieron el proyecto.
+
+---
+
+## **Sprint 1: Estructura Inicial y Base Visual**
+
+- Se creó la estructura de carpetas y archivos básicos:  
+  `index.html`, `contacto.html`, `css/`, `js/`, `img/`, `.gitignore`, `README.md`.
+- Se implementó `style.css` usando **Flexbox** para layout y responsividad.
+- El HTML incluye:  
+  - Header, main, footer, barra superior, modales y navegación.
+- Se creó el formulario para ingresar nombre de jugador.
+- Se agregó la barra superior del juego con contador de minas, botón de reinicio y temporizador.
+- Se incluyeron enlaces a Github y a la página de contacto.
+
+---
+
+## **Sprint 2: Lógica Base del Juego**
+
+- Se generó el tablero de juego dinámicamente con JavaScript (8x8, 10 minas).
+- Se implementó la colocación aleatoria de minas y validación de cantidad.
+- Se programó el click izquierdo para revelar celda y el click derecho para colocar/quitar bandera.
+- Se desarrolló el contador de minas/banderas y el temporizador que inicia al primer click.
+- Se implementó el mensaje modal para notificar victoria o derrota.
+- Se validó el nombre del jugador (mínimo 3 caracteres alfanuméricos).
+
+---
+
+## **Sprint 3: Expansión y Funcionalidad Completa**
+
+- Se programó la expansión recursiva de celdas vacías.
+- Se agregó la funcionalidad de chording (abrir celdas adyacentes si coincide el número de banderas).
+- Se permitió reiniciar la partida sin recargar la página.
+- El modal se mejoró para ser reutilizable en distintos mensajes y situaciones.
+- Se reforzaron las validaciones y el manejo de errores en todas las acciones.
+
+---
+
+## **Sprint 4: Página de Contacto y Mejoras Visuales**
+
+- Se creó `contacto.html` con un formulario (nombre, mail, mensaje).
+- El formulario se validó con JS (nombre alfanumérico, mail válido, mensaje >5 caracteres).
+- Al enviar, se abre la herramienta de email predeterminada con los datos.
+- Se mejoró la estética: detalles visuales, efectos hover, transiciones, etc.
+- Se mejoró la accesibilidad (colores, focos, etiquetas correctas).
+
+---
+
+## **Sprint 5: Extras y Opcionales**
+
+- Se implementó el **modo claro/oscuro** con botón e integración de `localStorage`.
+- Se agregaron **sonidos**: explosión al perder, aplausos al ganar, y música de fondo con botón de play/pause.
+- Se agregó el **selector de dificultad** (fácil, medio, difícil),  pero no termine la lógica para el dinamismo del tablero.
+- Se mejoró el `README.md` y la documentación final del proyecto.
+
+---
+
+## **Extras Destacados**
+
+- **Sonidos**: Se utilizaron archivos de audio para mejorar la experiencia de usuario.
+- **Tema visual**: El cambio entre claro/oscuro se integra en toda la interfaz.
+- **Música de fondo**: Agregada con control de reproducción para ambientar el juego.
+---
+
+## **Conclusión**
+
+A lo largo de los 5 sprints se logró una aplicación web de Buscaminas completa con funcionalidades opcionales que mejoran la experiencia del usuario y la calidad del proyecto.

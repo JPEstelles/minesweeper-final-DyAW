@@ -1,5 +1,4 @@
-"use strict"
-
+"use strict";
 var formJugador = document.getElementById("formJugador");
 var juegoSection = document.getElementById("juego");
 var tableroElem = document.getElementById("tablero"); 
@@ -7,12 +6,20 @@ var reiniciarBtn = document.getElementById("reiniciarBtn");
 var minasRestantesElem = document.getElementById("minasRestantes");
 var temporizadorElem = document.getElementById("temporizador");
 var errorNombre = document.getElementById("errorNombre");
-
+var temaCambiar = document.getElementById("temaCambiar");
+var temaActual = localStorage.getItem("tema") || "claro";
 //Modal - arreglarlo
 var modal = document.getElementById("modal");
 var modalMensaje = document.getElementById("modalMensaje");
 var modalCerrar = document.getElementById("modalCerrar");
-
+//Sonidos
+var sonidoBomba = new Audio("sonidos/bomb.mp3");
+var sonidoVictoria = new Audio("sonidos/one-man.mp3");
+var sonidoMusica = new Audio("sonidos/musica.mp3");
+var musicaActiva = false;
+var musicaBtn = document.getElementById("musicaBtn");
+sonidoMusica.loop = true; // Repetir la música en bucle
+sonidoMusica.volume = 0.2; 
 // Variables Juego
 var nombreJugador = "";
 var columnas = 8;
@@ -25,24 +32,31 @@ var juegoActivo = false;
 var banderasColocadas = 0;
 var timer = null;
 var segundos = 0;
-
+// Inicio del juego
 document.addEventListener("DOMContentLoaded", function() {
     formJugador.addEventListener("submit", iniciarJuego);
     reiniciarBtn.addEventListener("click", reiniciarJuego);
-
+    document.documentElement.setAttribute("data-tema", temaActual);
+    actualizarCambiarTema();
+    if (temaCambiar) {
+        temaCambiar.addEventListener("click", CambiarTema);
+    }
+    // Inicializar el botón de música
+    musicaBtn = document.getElementById("musicaBtn");
+    if (musicaBtn) {
+        musicaBtn.addEventListener("click", alternarMusica);
+    }
     modalCerrar.addEventListener("click", function() { //Al click en el boton de cerrar del modal se oculta
-     modal.classList.add("oculto");
+        modal.classList.add("oculto");
     });
 });
-
 function iniciarJuego(evento) {
     evento.preventDefault();
-    errorNombre.textContent = "";
     var input = document.getElementById("nombreJugador");
     var nombre = input.value.trim();
 
     if (nombre.length <3 || !/^[a-zA-Z0-9 ]+$/.test(nombre)){
-        errorNombre.textContent = "El nombre debe tener al menos 3 caracteres alfanuméricos."; 
+    mostrarModal("El nombre debe tener al menos 3 caracteres alfanuméricos."); 
         return;
     }
     nombreJugador = nombre;
@@ -127,7 +141,6 @@ function contarMinasAlrededor(fila, columna) {
     }
     return total; 
 }
-
 function clickCelda(e){
     if (!juegoActivo) return; // Si el juego no está activo, no hacer nada
     // Inicio Tmeporizador
@@ -145,7 +158,6 @@ function clickCelda(e){
     revelarCelda( f, c); // Revelar la celda
     verificarVictoria(); // Verificar si se ha ganado
 }
-
 function clickBandera(e) {
     e.preventDefault();
     if (!juegoActivo) return;
@@ -171,7 +183,6 @@ function clickBandera(e) {
     }
     minasRestantesElem.textContent = "Minas: " + (minas - banderasColocadas);
 }
-
 function revelarCelda(f, c){
     var celda = tablero[f][c]; // Obtener la celda del tablero
     if (celda.revelada || celda.bandera) return; // Si ya está revelada o tiene bandera, no hacer nada
@@ -181,7 +192,9 @@ function revelarCelda(f, c){
         celda.elem.classList.add("mina"); 
         celda.elem.textContent = "💣"; 
         juegoActivo = false; 
-        mostrarModal("¡PERDISTE! Sos Malisimo " + nombreJugador + " 😢");
+        sonidoBomba.play();
+        mostrarModal("¡PERDISTE! Sos Malisimo..." + nombreJugador + " 😢");
+
         clearInterval(timer);
         revelarTodasMinas();
         return;
@@ -201,7 +214,6 @@ function revelarCelda(f, c){
         }
     }
 }
-
 function revelarTodasMinas() {
     for (var f = 0; f < filas; f++) {
         for (var c = 0; c < columnas; c++) {
@@ -213,20 +225,51 @@ function revelarTodasMinas() {
         }
     }
 }
-
 function verificarVictoria() {
     if (reveladas === filas * columnas - minas) {
         juegoActivo = false;
-        mostrarModal("¡Ganaste, " + nombreJugador + "!");
+        sonidoVictoria.play();
+        revelarTodasMinas();
+        mostrarModal("¡Ganaste Fenómeno, " + nombreJugador + "!");
         clearInterval(timer);
     }
 }
-
+function CambiarTema() {
+    temaActual = temaActual === "claro" ? "oscuro" : "claro";
+    document.documentElement.setAttribute("data-tema", temaActual);
+    localStorage.setItem("tema", temaActual);// Guardar el tema en localStorage
+    actualizarCambiarTema();
+}
+function actualizarCambiarTema() {
+    if (temaCambiar) {
+        temaCambiar.textContent = temaActual === "claro" ? "🌙" : "☀️";
+    }
+}
+function alternarMusica() {
+    if (musicaActiva) {
+        sonidoMusica.pause();
+        sonidoMusica.currentTime = 0; // Reiniciar la música
+        musicaActiva = false;
+        musicaBtn.textContent = "🎵"; 
+        musicaBtn.title ="Música de Fondo";
+    } else {
+        sonidoMusica.play();
+        musicaActiva = true;
+        musicaBtn.textContent = "🔇"; 
+        musicaBtn.title ="Silenciar Música de Fondo";
+    }
+}
+function detenerMusica() {
+        sonidoMusica.pause();
+        sonidoMusica.currentTime = 0;
+        musicaActiva = false;
+        musicaBtn.textContent = "🎵";
+        musicaBtn.title = "Detener Música de Fondo";
+}
 function mostrarModal(texto) {
     modalMensaje.textContent = texto;
     modal.classList.remove("oculto");
 }
-
 function reiniciarJuego() {
     clearInterval(timer);
     iniciarPartida();
