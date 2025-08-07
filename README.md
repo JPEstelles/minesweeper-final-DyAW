@@ -45,5 +45,6 @@ Puedes acceder a la página de contacto desde el enlace en la parte superior del
 ## Código fuente
 
 El código del proyecto está disponible en [GitHub](https://github.com/JPEstelles/minesweeper-final-DyAW.git).
+Pagina en Github Pages : https://jpestelles.github.io/minesweeper-final-DyAW/
 
 
