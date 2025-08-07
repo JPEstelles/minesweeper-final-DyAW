@@ -38,6 +38,41 @@ Este proyecto es una versión web del juego clásico Buscaminas (Minesweeper) de
 - **.gitignore**: Ignora archivos ocultos y carpetas innecesarias.
 - **README.md**: Información y guía del proyecto.
 
+## Mapa Conceptual: Funcionamiento del Buscaminas (JS)
+INICIO
+│
+├── DOMContentLoaded
+│ ├── Escucha eventos (formulario, botones, modal)
+│ └── Aplica tema visual y configura música
+│
+├── Formulario jugador
+│ ├── Valida nombre
+│ └── Llama a iniciarPartida()
+│
+├── iniciarPartida()
+│ ├── Resetea estado del juego
+│ ├── Crea tablero vacío
+│ ├── Coloca minas aleatorias
+│ ├── Calcula números alrededor
+│ └── Dibuja tablero con celdas interactivas
+│
+├── Interacciones del jugador
+│ ├── Click izquierdo: revelarCelda()
+│ │ ├── Inicia timer
+│ │ ├── Revela celda y expande si es 0
+│ │ └── Si es mina: fin del juego
+│ ├── Click derecho: clickBandera()
+│ │ └── Coloca/quita banderas
+│ └── Verifica victoria
+│
+├── Funciones extra
+│ ├── Tema claro/oscuro
+│ ├── Música de fondo
+│ ├── Modal de mensajes
+│ └── Reinicio del juego
+│
+└── FIN
+
 ## Contacto
 
 Puedes acceder a la página de contacto desde el enlace en la parte superior del sitio.
